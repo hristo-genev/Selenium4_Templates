@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class Safari_Catalina_Tests {
+public class Safari_Sonoma_Tests {
 
   private RemoteWebDriver driver;
   private Report report;
@@ -24,14 +24,14 @@ public class Safari_Catalina_Tests {
 
   @BeforeTest
   public void setUpDriver() throws Exception {
-    String host = "mobilecloud";
+    String host = "demo";
     SafariOptions browserOptions = new SafariOptions();
 
     browserOptions.setPlatformName("Mac");
-    browserOptions.setBrowserVersion("14");
+    browserOptions.setBrowserVersion("latest");
 
     Map<String, Object> perfectoOptions = new HashMap<>();
-    perfectoOptions.put("platformVersion", "macOS Catalina");
+    perfectoOptions.put("platformVersion", "macOS Sonoma");
     perfectoOptions.put("location", "NA-US-BOS");
     perfectoOptions.put("resolution", "1920x1080");
     perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));

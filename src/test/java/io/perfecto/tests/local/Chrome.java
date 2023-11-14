@@ -18,6 +18,9 @@ public class Chrome {
 //    System.setProperty("webdriver.chrome.driver", "/home/user/chromedriver");
 
     ChromeOptions browserOptions = new ChromeOptions();
+//    browserOptions.addArguments("--disable-blink-features=AutomationControlled");
+    browserOptions.addArguments("--remote-allow-origins=*");
+
     driver = new ChromeDriver(browserOptions);
 
     System.out.println(driver);
