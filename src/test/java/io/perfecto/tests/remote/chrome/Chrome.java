@@ -41,19 +41,23 @@ public class Chrome {
   @BeforeClass
   public void setUpDriver() throws Exception {
 
-    String host = "capac.perfectomobile.com";
+    String host = "citi.perfectomobile.com";
     ChromeOptions browserOptions = new ChromeOptions();
 
     browserOptions.setPlatformName("Windows");
     browserOptions.setBrowserVersion("latest");
-    browserOptions.addArguments("--disable-blink-features=AutomationControlled");
-    browserOptions.addArguments("--remote-allow-origins=*");
+//    browserOptions.addArguments("--disable-blink-features=AutomationControlled");
+//    browserOptions.addArguments("--remote-allow-origins=*");
 
     Map<String, Object> perfectoOptions = new HashMap<>();
     perfectoOptions.put("platformVersion", "10");
-    perfectoOptions.put("location", "US East");
+//    perfectoOptions.put("location", "US East");
+    perfectoOptions.put("location", "EU Frankfurt");
+//    perfectoOptions.put("location", "AP Sydney");
     perfectoOptions.put("resolution", "1920x1080");
-    perfectoOptions.put("captureHAR", true);
+//    perfectoOptions.put("pageLoadStrategy", "normal");
+//    perfectoOptions.put("seleniumVersion", "3.8.1");
+//    perfectoOptions.put("captureHAR", true);
     perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
@@ -98,8 +102,11 @@ public class Chrome {
 
   @Test
   public void test1() throws Exception {
-    reportiumClient.testStart("Chanel add to cart", new TestContext());
+    reportiumClient.testStart("Web Test", new TestContext());
 
-    Chanel.addProductToCart((RemoteWebDriver) driver);
+    driver.get("https://ifconfig.co");
+    driver.get("https://perforce.com");
+
+    Thread.sleep(3000);
   }
 }

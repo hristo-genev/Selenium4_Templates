@@ -1,6 +1,11 @@
 package VisualAnalysisTests;
 
 import VisualAnalysisTests.scenarios.AuthenticationPopup;
+import com.perfecto.reportium.client.ReportiumClient;
+import com.perfecto.reportium.client.ReportiumClientFactory;
+import com.perfecto.reportium.model.Job;
+import com.perfecto.reportium.model.PerfectoExecutionContext;
+import com.perfecto.reportium.model.Project;
 import io.perfecto.utilities.reporting.Report;
 import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -16,7 +21,7 @@ import java.util.Map;
 public class Edge_Latest_Tests {
 
   private RemoteWebDriver driver;
-  private Report report;
+  private ReportiumClient reportiumClient;
 
   @BeforeClass
   public void setUpDriver() throws Exception {
@@ -36,6 +41,13 @@ public class Edge_Latest_Tests {
 
     driver = new RemoteWebDriver(new URL("https://" + host + "/nexperience/perfectomobile/wd/hub"), browserOptions);
 
+    PerfectoExecutionContext perfectoExecutionContext = new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
+        .withProject(new Project("Perfecto.Support Web tests", "1.0"))
+        .withJob(new Job("Perfecto.Support Web tests", 1))
+        .withWebDriver(driver)
+        .build();
+    reportiumClient = new ReportiumClientFactory().createPerfectoReportiumClient(perfectoExecutionContext);
+
     System.out.println(driver);
     System.out.println(browserOptions);
   }
@@ -52,6 +64,6 @@ public class Edge_Latest_Tests {
 
   @Test
   public void authenticate() throws Exception {
-    AuthenticationPopup.authenticateBlink(driver);
+    AuthenticationPopup.authenticateBlink(driver, reportiumClient);
   }
 }

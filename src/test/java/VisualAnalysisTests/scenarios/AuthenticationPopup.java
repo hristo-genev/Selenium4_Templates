@@ -1,5 +1,7 @@
 package VisualAnalysisTests.scenarios;
 
+import com.perfecto.reportium.client.ReportiumClient;
+import com.perfecto.reportium.test.TestContext;
 import io.perfecto.utilities.reporting.Report;
 import io.perfecto.utilities.reporting.ReportBuilder;
 import io.perfecto.utilities.visualanalysis.EditTextSet;
@@ -9,15 +11,8 @@ import io.perfecto.utilities.visualanalysis.TextCheckpoint;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class AuthenticationPopup {
-  public static void authenticateBlink(RemoteWebDriver driver) throws Exception {
-    Report report = null;
+  public static void authenticateBlink(RemoteWebDriver driver, ReportiumClient reportiumClient) throws Exception {
 
-    try {
-      report = new ReportBuilder(driver)
-          .withReportName("Handle basic authentication popup")
-              .build();
-
-      report.startTest();
       driver.get("https://the-internet.herokuapp.com/basic_auth");
       driver.manage().window().maximize();
 
@@ -58,14 +53,8 @@ public class AuthenticationPopup {
       Thread.sleep(3000);
 
       new TextCheckpoint(driver)
-          .validateTextIsOnScreen("Congratulations");
+          .validateTextIsOnScreen("Congratulations!");
 
-      report.endTest();
-    } catch (Exception e) {
-      e.printStackTrace();
-      report.endTestWithFailureMessage(e.getMessage());
-    }
-    report.open();
   }
 
   public static void authenticateGecko(RemoteWebDriver driver) throws Exception {
@@ -122,6 +111,5 @@ public class AuthenticationPopup {
       report.endTestWithFailureMessage(e.getMessage());
 //      throw e;
     }
-    report.open();
   }
 }

@@ -28,7 +28,7 @@ public class Safari_Sonoma_Tests {
     SafariOptions browserOptions = new SafariOptions();
 
     browserOptions.setPlatformName("Mac");
-    browserOptions.setBrowserVersion("latest");
+    browserOptions.setBrowserVersion("17");
 
     Map<String, Object> perfectoOptions = new HashMap<>();
     perfectoOptions.put("platformVersion", "macOS Sonoma");

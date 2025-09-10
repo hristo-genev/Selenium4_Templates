@@ -29,11 +29,11 @@ public class Safari_Ventura_Tests {
   @BeforeTest
   public void setUpDriver() throws Exception {
     String host = "web-demo-fra";
-    host = "mobilecloud";
+    host = "wyn";
     SafariOptions browserOptions = new SafariOptions();
 
     browserOptions.setPlatformName("Mac");
-    browserOptions.setBrowserVersion("16");
+    browserOptions.setBrowserVersion("17");
 
     Map<String, Object> perfectoOptions = new HashMap<>();
     perfectoOptions.put("platformVersion", "macOS Ventura");

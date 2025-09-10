@@ -21,14 +21,14 @@ public class Firefox_Latest_Tests {
 
   @BeforeClass
   public void setUpDriver() throws Exception {
-    String host = "demo";
+    String host = "jpmc";
     FirefoxOptions browserOptions = new FirefoxOptions();
 
     browserOptions.setPlatformName("Windows");
     browserOptions.setBrowserVersion("latest");
 
     Map<String, Object> perfectoOptions = new HashMap<>();
-    perfectoOptions.put("platformVersion", "10");
+    perfectoOptions.put("platformVersion", "11");
     perfectoOptions.put("location", "US East");
     perfectoOptions.put("resolution", "1920x1080");
     perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));

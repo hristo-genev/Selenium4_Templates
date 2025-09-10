@@ -8,19 +8,14 @@ import com.perfecto.reportium.model.PerfectoExecutionContext;
 import com.perfecto.reportium.model.Project;
 import com.perfecto.reportium.test.TestContext;
 import com.perfecto.reportium.test.result.TestResultFactory;
-import io.perfecto.tests.scenarios.CampusM;
 import io.perfecto.tests.scenarios.DuckDuckGo;
 import io.perfecto.tests.scenarios.Leumiqa;
-import io.perfecto.utilities.extendedmobiledriver.ExtendedMobileDriver;
-import io.perfecto.utilities.reporting.Report;
 import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.remote.RemoteWebDriverBuilder;
 import org.openqa.selenium.remote.http.ClientConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -30,14 +25,11 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class Chrome_Latest_Tests {
+public class Chrome_Any_Version {
 
   private RemoteWebDriver driver;
   private ReportiumClient reportiumClient;
@@ -45,23 +37,22 @@ public class Chrome_Latest_Tests {
 
   @BeforeClass
   public void setUpDriver() throws Exception {
-    var host = "demo";
-    var browserOptions = new ChromeOptions();
+    String host = "demo.perfectomobile.com";
+    ChromeOptions browserOptions = new ChromeOptions();
 
     browserOptions.setPlatformName("Windows");
-    browserOptions.setBrowserVersion("latest");
-    browserOptions.setCapability("perfecto:takesScreenshot", false);
+    browserOptions.setBrowserVersion("118");
 
-    var perfectoOptions = new HashMap<>();
-    perfectoOptions.put("platformVersion", "10");
+    Map<String, Object> perfectoOptions = new HashMap<>();
+    perfectoOptions.put("platformVersion", "11");
     perfectoOptions.put("location", "US East");
     perfectoOptions.put("resolution", "1920x1080");
-    perfectoOptions.put("takesScreenshot", false);
+    perfectoOptions.put("browserVersion", "118");
     perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
 
-    var config = ClientConfig.defaultConfig()
+    ClientConfig config = ClientConfig.defaultConfig()
         .connectionTimeout(Duration.ofMinutes(5))
         .readTimeout(Duration.ofMinutes(4));
 
@@ -69,7 +60,7 @@ public class Chrome_Latest_Tests {
 
     driver = (RemoteWebDriver) RemoteWebDriver.builder()
         .config(config)
-        .address("https://" + host + ".perfectomobile.com/nexperience/perfectomobile/wd/hub/")
+        .address("https://" + host + "/nexperience/perfectomobile/wd/hub/")
         .oneOf(browserOptions)
         .build();
 
@@ -79,7 +70,7 @@ public class Chrome_Latest_Tests {
 
     log.info("Starting initialization of Reportium client");
 
-    var perfectoExecutionContext = new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
+    PerfectoExecutionContext perfectoExecutionContext = new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
         .withProject(new Project("Perfecto.Support Web tests", "1.0"))
         .withJob(new Job("Perfecto.Support Web tests", 1))
         .withWebDriver(driver)
@@ -103,7 +94,7 @@ public class Chrome_Latest_Tests {
     }
     var reportUrl = reportiumClient.getReportUrl();
     if (reportUrl != null) {
-      log.info("Report URL: %s" + reportUrl);
+      log.info("Report URL: " + reportUrl);
       java.awt.Desktop.getDesktop().browse(new URI(reportUrl));
     }
   }
@@ -131,31 +122,9 @@ public class Chrome_Latest_Tests {
     reportiumClient.testStart("Search in DuckDuckGo", new TestContext());
     DuckDuckGo.searchForPerfecto(driver, reportiumClient);
   }
-
   @Test
   public void leumiTest() throws Exception {
     reportiumClient.testStart("Leumi", new TestContext());
     Leumiqa.leumiMorgageRequest(driver, reportiumClient);
-  }
-
-
-  @Test
-  public void campusM() throws Exception {
-    reportiumClient.testStart("CampusM", new TestContext());
-    CampusM.loginLdap2(driver, reportiumClient);
-  }
-
-
-  @Test
-  public void takesScreenshot() throws Exception {
-    reportiumClient.testStart("TakesScreenshot", new TestContext());
-    driver.get("https://duckduckgo.com");
-    driver.getScreenshotAs(OutputType.FILE);
-    try {
-      driver.findElement(By.xpath("//not-existing-element"));
-    } catch (Exception ex) {}
-    driver.findElement(By.xpath("//*"));
-    driver.getScreenshotAs(OutputType.FILE);
-
   }
 }

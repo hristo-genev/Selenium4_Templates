@@ -11,33 +11,28 @@ import com.perfecto.reportium.test.result.TestResultFactory;
 import io.perfecto.tests.scenarios.CampusM;
 import io.perfecto.tests.scenarios.DuckDuckGo;
 import io.perfecto.tests.scenarios.Leumiqa;
-import io.perfecto.utilities.extendedmobiledriver.ExtendedMobileDriver;
-import io.perfecto.utilities.reporting.Report;
 import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.remote.RemoteWebDriverBuilder;
 import org.openqa.selenium.remote.http.ClientConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
-import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class Chrome_Latest_Tests {
+public class Chrome_CRX_Extension {
 
   private RemoteWebDriver driver;
   private ReportiumClient reportiumClient;
@@ -51,6 +46,8 @@ public class Chrome_Latest_Tests {
     browserOptions.setPlatformName("Windows");
     browserOptions.setBrowserVersion("latest");
     browserOptions.setCapability("perfecto:takesScreenshot", false);
+    browserOptions.addExtensions(new File("/Users/hgenev/Downloads/modheader.crx"));
+    browserOptions.addArguments("--disable-features=DisableLoadExtensionCommandLineSwitch");
 
     var perfectoOptions = new HashMap<>();
     perfectoOptions.put("platformVersion", "10");

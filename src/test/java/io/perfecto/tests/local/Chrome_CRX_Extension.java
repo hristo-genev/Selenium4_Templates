@@ -1,6 +1,5 @@
 package io.perfecto.tests.local;
 
-import io.perfecto.tests.scenarios.Chanel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,24 +8,27 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.net.URL;
-import java.rmi.Remote;
 
-public class Chrome {
+public class Chrome_CRX_Extension {
 
   private WebDriver driver;
 
   @BeforeClass
   public void setUpDriver() throws Exception {
-//    System.setProperty("webdriver.chrome.driver", "/Users/hgenev/appium/drivers/chromedrivers/chromedriver-137.0.7151.70");
+    System.setProperty("webdriver.chrome.driver", "/Users/hgenev/appium/drivers/chromedrivers/chromedriver-138.0.7204.94");
 
     var browserOptions = new ChromeOptions();
-//    browserOptions.setBinary("/Users/hgenev/appium/drivers/chromedrivers/chromedriver-137.0.7151.70");
+//    browserOptions.addExtensions(new File("/Users/hgenev/Downloads/modheader.crx"));
+//    browserOptions.addArguments("--disable-features=DisableLoadExtensionCommandLineSwitch");
+    browserOptions.setBinary("/Users/hgenev/appium/drivers/chromedrivers/chromedriver-138.0.7204.94");
 //    browserOptions.addArguments("--disable-blink-features=AutomationControlled");
 //    browserOptions.addArguments("--remote-allow-origins=*");
-
+    browserOptions.addArguments("--log-path=/Users/hgenev/chromedriver.log");
+    browserOptions.addArguments("--log-level=DEBUG");
 //    driver = new ChromeDriver(browserOptions);
-    driver = new RemoteWebDriver(new URL("http://192.168.1.13:4444"), browserOptions);
+    driver = new RemoteWebDriver(new URL("http://127.0.0.1:4444"), browserOptions);
 
     System.out.println(driver);
   }
