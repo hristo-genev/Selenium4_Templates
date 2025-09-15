@@ -6,9 +6,8 @@ import com.perfecto.reportium.model.Job;
 import com.perfecto.reportium.model.PerfectoExecutionContext;
 import com.perfecto.reportium.model.Project;
 import com.perfecto.reportium.test.result.TestResultFactory;
+import io.perfecto.PerfectoTokenProvider;
 import io.perfecto.tests.scenarios.Chanel;
-import io.perfecto.utilities.reporting.Report;
-import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
@@ -42,7 +41,7 @@ public class Firefox_122_Tests {
     perfectoOptions.put("location", "US East");
     perfectoOptions.put("resolution", "1920x1080");
     perfectoOptions.put("captureHAR", true);
-    perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
+    perfectoOptions.put("securityToken", PerfectoTokenProvider.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
 

@@ -1,7 +1,7 @@
 package VisualAnalysisTests;
 
+import io.perfecto.PerfectoTokenProvider;
 import io.perfecto.utilities.reporting.Report;
-import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
 import io.perfecto.utilities.visualanalysis.EditTextSet;
 import io.perfecto.utilities.visualanalysis.LabelDirection;
 import io.perfecto.utilities.visualanalysis.TextButtonClick;
@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 
 import java.net.URI;
 import java.net.URL;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -37,7 +38,7 @@ public class Safari_Latest_Tests {
 //    perfectoOptions.put("platformVersion", "macOS Monterey");
     perfectoOptions.put("location", "NA-US-BOS");
     perfectoOptions.put("resolution", "1920x1080");
-    perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
+    perfectoOptions.put("securityToken", PerfectoTokenProvider.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
 
@@ -72,8 +73,9 @@ public class Safari_Latest_Tests {
 //          .build();
 
 //      report.startTest();
-      driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-      driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+
+      driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+      driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
 //      driver.manage().window().maximize();
       try {
 //        driver.get("https://the-internet.herokuapp.com/basic_auth");

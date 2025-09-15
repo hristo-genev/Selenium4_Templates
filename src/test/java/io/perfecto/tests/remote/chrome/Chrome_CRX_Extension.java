@@ -8,10 +8,10 @@ import com.perfecto.reportium.model.PerfectoExecutionContext;
 import com.perfecto.reportium.model.Project;
 import com.perfecto.reportium.test.TestContext;
 import com.perfecto.reportium.test.result.TestResultFactory;
+import io.perfecto.PerfectoTokenProvider;
 import io.perfecto.tests.scenarios.CampusM;
 import io.perfecto.tests.scenarios.DuckDuckGo;
 import io.perfecto.tests.scenarios.Leumiqa;
-import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -54,7 +54,7 @@ public class Chrome_CRX_Extension {
     perfectoOptions.put("location", "US East");
     perfectoOptions.put("resolution", "1920x1080");
     perfectoOptions.put("takesScreenshot", false);
-    perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
+    perfectoOptions.put("securityToken", PerfectoTokenProvider.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
 

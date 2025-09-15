@@ -1,11 +1,9 @@
 package io.perfecto.tests.remote.safari;
 
+import io.perfecto.PerfectoTokenProvider;
 import io.perfecto.tests.scenarios.Chanel;
 import io.perfecto.utilities.reporting.Report;
-import io.perfecto.utilities.reporting.ReportBuilder;
-import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
 import io.perfecto.utilities.useractions.UserActions;
-import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import org.testng.annotations.AfterClass;
@@ -35,7 +33,7 @@ public class Safari {
     perfectoOptions.put("platformVersion", "macOS Ventura");
     perfectoOptions.put("location", "NA-US-BOS");
     perfectoOptions.put("resolution", "1920x1080");
-    perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
+    perfectoOptions.put("securityToken", PerfectoTokenProvider.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
 

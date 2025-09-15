@@ -8,14 +8,7 @@ import com.perfecto.reportium.model.Project;
 import com.perfecto.reportium.test.TestContext;
 import com.perfecto.reportium.test.result.TestResult;
 import com.perfecto.reportium.test.result.TestResultFactory;
-import com.perfecto.reportium.test.result.TestResultSuccess;
-import io.perfecto.tests.scenarios.Chanel;
-import io.perfecto.utilities.reporting.Report;
-import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
-import io.perfecto.utilities.visualanalysis.LabelDirection;
-import io.perfecto.utilities.visualanalysis.TextButtonClick;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import io.perfecto.utilities.tokensprovider.PerfectoTokenProvider;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -58,7 +51,7 @@ public class Chrome {
 //    perfectoOptions.put("pageLoadStrategy", "normal");
 //    perfectoOptions.put("seleniumVersion", "3.8.1");
 //    perfectoOptions.put("captureHAR", true);
-    perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
+    perfectoOptions.put("securityToken", PerfectoTokenProvider.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
 

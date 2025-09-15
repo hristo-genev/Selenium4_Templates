@@ -10,7 +10,7 @@ import com.perfecto.reportium.client.ReportiumClientFactory;
 import com.perfecto.reportium.model.PerfectoExecutionContext;
 import com.perfecto.reportium.test.TestContext;
 import com.perfecto.reportium.test.result.TestResultFactory;
-import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
+import io.perfecto.utilities.tokensprovider.PerfectoTokenProvider;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -27,7 +27,7 @@ public class PureSelenium_Chrome_Authentication {
     perfectoOptions.put("platformVersion", "10");
     perfectoOptions.put("location", "US East");
     perfectoOptions.put("resolution", "1920x1080");
-    perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
+    perfectoOptions.put("securityToken", PerfectoTokenProvider.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
 

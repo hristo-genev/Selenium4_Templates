@@ -6,8 +6,7 @@ import com.perfecto.reportium.client.ReportiumClientFactory;
 import com.perfecto.reportium.model.Job;
 import com.perfecto.reportium.model.PerfectoExecutionContext;
 import com.perfecto.reportium.model.Project;
-import io.perfecto.utilities.reporting.Report;
-import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
+import io.perfecto.PerfectoTokenProvider;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
@@ -37,7 +36,7 @@ public class Chrome_Latest_Tests {
     perfectoOptions.put("platformVersion", "10");
     perfectoOptions.put("location", "US East");
     perfectoOptions.put("resolution", "1920x1080");
-    perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
+    perfectoOptions.put("securityToken", PerfectoTokenProvider.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
 

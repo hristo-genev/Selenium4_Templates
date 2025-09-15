@@ -7,10 +7,10 @@ import com.perfecto.reportium.model.Job;
 import com.perfecto.reportium.model.PerfectoExecutionContext;
 import com.perfecto.reportium.model.Project;
 import com.perfecto.reportium.test.result.TestResultFactory;
-import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.ie.InternetExplorerOptions;
+import io.perfecto.PerfectoTokenProvider;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -44,7 +44,8 @@ public class IE_Tests {
     perfectoOptions.put("platformVersion", "11");
     perfectoOptions.put("location", "US East");
     perfectoOptions.put("resolution", "1920x1080");
-    perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
+    perfectoOptions.put("takesScreenshot", true);
+    perfectoOptions.put("securityToken", PerfectoTokenProvider.getTokenForCloud(host));
     perfectoOptions.put("ie-mode", true);
 
 //    browserOptions.setCapability("perfecto:ie-mode", true);
@@ -96,11 +97,24 @@ public class IE_Tests {
   }
 
   @Test
-  public void webTest1() throws Exception {
+  public void testIEPage() throws Exception {
 
-    driver.get("https://www.imperial.ac.uk/admin-services/ict/self-service/computers-printing/windows-10/ie-mode/test-page/");
-//    driver.manage().window().maximize();
+    driver.get("https://the-internet.herokuapp.com/login");
+    Thread.sleep(3000);
+    driver.manage().window().maximize();
     Thread.sleep(1000);
+
+    var element = driver.findElement(By.cssSelector("#username"));
+    element.click();
+    element.sendKeys("tomsmith");
+
+    driver.findElement(By.cssSelector("#password"))
+        .sendKeys("SuperSecretPassword!");
+
+    driver.findElement(By.xpath("(//button)[1]"))
+            .click();
+
+    Thread.sleep(5000);
     driver.getScreenshotAs(OutputType.FILE);
   }
   
@@ -114,6 +128,21 @@ public class IE_Tests {
     driver.getScreenshotAs(OutputType.FILE);
   }
 
+  @Test
+  public void badSSlTest() throws Exception {
+
+    driver.get("https://untrusted-root.badssl.com/");
+//    driver.manage().window().maximize();
+    Thread.sleep(1000);
+
+    driver.findElement(By.cssSelector("#infoBlockIDImage"))
+        .click();
+
+    driver.findElement(By.cssSelector("#overridelink"))
+        .click();
+
+    driver.getScreenshotAs(OutputType.FILE);
+  }
   @Test
   public void webTest3() throws Exception {
 

@@ -8,9 +8,9 @@ import com.perfecto.reportium.model.PerfectoExecutionContext;
 import com.perfecto.reportium.model.Project;
 import com.perfecto.reportium.test.TestContext;
 import com.perfecto.reportium.test.result.TestResultFactory;
+import io.perfecto.PerfectoTokenProvider;
 import io.perfecto.tests.scenarios.DuckDuckGo;
 import io.perfecto.tests.scenarios.Leumiqa;
-import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.http.ClientConfig;
@@ -48,7 +48,7 @@ public class Chrome_Any_Version {
     perfectoOptions.put("location", "US East");
     perfectoOptions.put("resolution", "1920x1080");
     perfectoOptions.put("browserVersion", "118");
-    perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
+    perfectoOptions.put("securityToken", PerfectoTokenProvider.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
 

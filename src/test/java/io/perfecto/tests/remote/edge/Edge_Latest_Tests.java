@@ -1,9 +1,8 @@
 package io.perfecto.tests.remote.edge;
 
-import VisualAnalysisTests.scenarios.AuthenticationPopup;
+import io.perfecto.PerfectoTokenProvider;
 import io.perfecto.utilities.reporting.Report;
 import io.perfecto.utilities.reporting.ReportBuilder;
-import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
@@ -32,7 +31,7 @@ public class Edge_Latest_Tests {
     perfectoOptions.put("platformVersion", "10");
     perfectoOptions.put("location", "US East");
     perfectoOptions.put("resolution", "1920x1080");
-    perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
+    perfectoOptions.put("securityToken", PerfectoTokenProvider.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
 

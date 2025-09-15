@@ -1,10 +1,9 @@
 package io.perfecto.tests.remote.chrome;
 
+import io.perfecto.PerfectoTokenProvider;
 import io.perfecto.tests.scenarios.Kodi;
 import io.perfecto.utilities.reporting.Report;
 import io.perfecto.utilities.reporting.ReportBuilder;
-import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -36,7 +35,7 @@ public class Kodi_Website {
     perfectoOptions.put("platformVersion", "10");
     perfectoOptions.put("location", "US East");
     perfectoOptions.put("resolution", "1920x1080");
-    perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
+    perfectoOptions.put("securityToken", PerfectoTokenProvider.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
 
@@ -46,9 +45,8 @@ public class Kodi_Website {
         .withReportName("Kodi Website Tests")
         .build();
 
-//      report.startTest();
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+    driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
   }
 
   @AfterClass

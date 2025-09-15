@@ -7,13 +7,14 @@ import com.perfecto.reportium.model.PerfectoExecutionContext;
 import com.perfecto.reportium.model.Project;
 import com.perfecto.reportium.test.TestContext;
 import com.perfecto.reportium.test.result.TestResultFactory;
-import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
+import io.perfecto.PerfectoTokenProvider;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URI;
 import java.net.URL;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -31,7 +32,7 @@ public class PureSelenium_Firefox_Authentication {
     perfectoOptions.put("platformVersion", "10");
     perfectoOptions.put("location", "US East");
     perfectoOptions.put("resolution", "1920x1080");
-    perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
+    perfectoOptions.put("securityToken", PerfectoTokenProvider.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
 
@@ -46,7 +47,7 @@ public class PureSelenium_Firefox_Authentication {
     ReportiumClient reportiumClient = new ReportiumClientFactory().createPerfectoReportiumClient(perfectoExecutionContext);
     reportiumClient.testStart("Firefox Basic Authentication Popup", new TestContext.Builder().build());
 
-    driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+    driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
     try {
       driver.get("https://the-internet.herokuapp.com/basic_auth");
     } catch (Exception ex) {}

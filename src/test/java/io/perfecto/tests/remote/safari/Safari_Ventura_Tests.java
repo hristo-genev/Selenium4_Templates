@@ -1,8 +1,8 @@
 package io.perfecto.tests.remote.safari;
 
+import io.perfecto.PerfectoTokenProvider;
 import io.perfecto.utilities.reporting.Report;
 import io.perfecto.utilities.reporting.ReportBuilder;
-import io.perfecto.utilities.tokenstorage.PerfectoTokenStorage;
 import io.perfecto.utilities.useractions.UserActions;
 import io.perfecto.utilities.visualanalysis.EditTextSet;
 import io.perfecto.utilities.visualanalysis.LabelDirection;
@@ -16,6 +16,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.net.URL;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -39,7 +40,7 @@ public class Safari_Ventura_Tests {
     perfectoOptions.put("platformVersion", "macOS Ventura");
     perfectoOptions.put("location", "NA-US-BOS");
     perfectoOptions.put("resolution", "1920x1080");
-    perfectoOptions.put("securityToken", PerfectoTokenStorage.getTokenForCloud(host));
+    perfectoOptions.put("securityToken", PerfectoTokenProvider.getTokenForCloud(host));
 
     browserOptions.setCapability("perfecto:options", perfectoOptions);
 
@@ -63,9 +64,9 @@ public class Safari_Ventura_Tests {
           .withReportName("Safari Add-Remove elements")
           .build();
 
-//      report.startTest();
-      driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-      driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+      driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+      driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+
       driver.get("https://the-internet.herokuapp.com/add_remove_elements/");
       driver.manage().window().maximize();
 

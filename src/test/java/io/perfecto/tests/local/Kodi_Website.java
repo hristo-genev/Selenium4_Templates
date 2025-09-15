@@ -32,8 +32,9 @@ public class Kodi_Website {
     driver = new ChromeDriver(browserOptions);
     wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     System.out.println(driver);
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+    driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
   }
 
   @AfterClass
